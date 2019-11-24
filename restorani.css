@@ -1,0 +1,71 @@
+.body {
+    overflow: auto;
+    margin: 0px;
+}
+.container-fluid {
+    background-image: linear-gradient(#ffd460, #f07b3f);
+}
+.content {
+    margin: 24px 12px;
+    color:#f07b3f;
+    border: 2px solid #ea5455;
+    
+    background-color: #f2eee5;
+}
+
+.content p {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 20px;
+    padding: 0px 24px;
+}
+
+.content h1 {
+    font-family: 'Noto Sans TC', sans-serif;
+    font-weight: bold;
+    font-size: 36px;
+    margin: 0px 24px;
+    padding-top: 24px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #7d7d7d;
+}
+
+.content img {
+    border-radius: 30px;
+    height: 380px;
+    width: 100%;
+    padding: 24px 24px;
+}
+
+.social {
+    padding: 12px 12px;
+    height:50px;
+}
+.social img {
+    width: 40px;
+    height: 40px;
+    float:left;
+}
+
+.content a:link{
+    text-decoration: none;
+    color: #f07b3f;
+}
+
+.content a:visited {
+    text-decoration: none;
+    color:#f07b3f;
+}
+
+.content a:hover {
+    color:#ca3e47;
+}
+
+.nav-item {
+    font-size: 22px;
+    margin: 0px 12px;
+}
+
+#border-top {
+    border-top: 8px solid #ffd460;
+}
+

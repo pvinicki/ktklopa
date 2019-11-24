@@ -1,0 +1,57 @@
+.body {
+    overflow: auto;
+    margin: 0px;
+}
+
+.container img {
+    height: 500px;
+    width: 80%;
+    border-radius: 10px;
+}
+
+.row {
+    margin-bottom: 24px;
+}
+
+.nav-item {
+    font-size: 22px;
+    margin: 0px 12px;
+}
+
+.container {
+    text-align: center;
+}
+
+.container-fluid {
+    padding-top: 32px;
+    padding-bottom: 64px;
+    background-image: linear-gradient(#ffd460, #f07b3f)
+}
+
+.tab-title {
+    font-size: 20px;
+    margin: 0px;
+    font-family: 'Quicksand', sans-serif;
+    color:#f07b3f;
+}
+
+.tab-title a:link {
+    color:#f07b3f;
+}
+
+.tab-title a:hover {
+    color: #ffd460;
+}
+
+.tab-pane {
+    margin-top: 32px;
+}
+
+tbody p {
+    margin: 2px 0px;
+}
+
+tbody td:nth-child(2){
+    text-align: center;
+    vertical-align: middle;
+}

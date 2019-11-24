@@ -1,0 +1,78 @@
+.body {
+    overflow: auto;
+    margin: 0px;
+}
+.form_container {
+    clear: both;
+    background-color: #525252;
+    padding:128px 48px;
+    height: 540px;
+}
+
+.nav-item {
+    font-size: 22px;
+    margin: 0px 12px;
+}
+
+.container-fluid {
+    padding: 24px;
+    background-image: linear-gradient(to right, #ffd460, #f07b3f); 
+}
+
+.container {
+    padding: 24px 128px;
+    border: 2px solid white;
+    background-image: url('login_bg.png');
+}
+
+label {
+    color: #f07b3f;
+    font-size: 24px;
+}
+
+.form-check-input{
+    margin-top: 13px;
+    height: 16px;
+    width: 16px;
+}
+
+.center {
+    width: 400px;
+    margin:0px auto;
+    border: 1px solid white;
+    border-radius: 5px;
+    padding: 12px;
+    background-color: #414141;
+
+    border-collapse: separate;
+    border-spacing: 0px 22px;
+}
+
+.center input[type=text], input[type=password], input[type=email] {
+    width: 100%;
+    border: 1px solid white;
+    border-radius: 3px;
+}
+
+.center label {
+    color: white;
+    font-size: 16px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+button:focus {
+   background-image: radial-gradient(white, #414141);
+   outline:none;
+}
+
+
+.login_button {
+    background-color: white;
+    color:black;
+    font-size: 16px;
+    width: 100%;
+    border: 1px solid white;
+    border-radius: 3px;
+    text-decoration: none;
+}
+
