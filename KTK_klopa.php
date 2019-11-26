@@ -15,6 +15,10 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <link href="fontawesome/css/all.css" rel="stylesheet">
+    <script defer src="fontawesome/js/all.js"></script>
+
     <link href="https://fonts.googleapis.com/css?family=Quicksand|Rubik&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -70,8 +74,8 @@
                     <div class="card" style="margin:60px;">
                         <div class="card-body">
                             <h2 class="card-title">Kategorije</h2>
-                            <p><a href="" class="card-link">Gotova Jela</a></p>
-                            <p><a href="" class="card-link">Jela po narudžbi</a></p>
+                            <p><a href="gotova_jela.php" class="card-link">Gotova Jela</a></p>
+                            <p><a href="jela_po_narudzbi.php" class="card-link">Jela po narudžbi</a></p>
                             <p><a href="" class="card-link">Jela s Roštilja</a></p>
                             <p><a href="" class="card-link">Mesne Plate</a></p>
                             <p><a href="" class="card-link">Salate</a></p>

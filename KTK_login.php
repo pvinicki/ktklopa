@@ -46,7 +46,7 @@
                 while($row = $result->fetch_assoc()){
 
                     //check if admin
-                    if(($row['uloga'] == 'admin') && ($password == $row['lozinka'])){
+                    if(($row['uloga'] == 'admin') and ($password == $row['lozinka'])){
                         $_SESSION['id'] = $row['id'];
                         $_SESSION['uloga'] = 'admin';
                         header('Location: adminpage.php');

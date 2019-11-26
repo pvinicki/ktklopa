@@ -17,9 +17,13 @@
     padding-bottom: 8px;
 }
 
+.card-body{
+    padding:20px;
+}
+
 .card-body p {
     margin-bottom: 8px;
-    font-size: 20px;
+    font-size: 22px;
 }
 
 .card-body h2 {
