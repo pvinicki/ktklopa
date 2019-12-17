@@ -36,3 +36,9 @@
     text-align:left;
     margin-top: 48px;
 }
+
+.tbody th, td {
+    text-align: center;
+    vertical-align: middle;
+}
+

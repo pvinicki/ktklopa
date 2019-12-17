@@ -1,6 +1,60 @@
 <?php 
     session_start();
 ?>
+<?php 
+    if(isset($_SESSION['id'])){
+        include "logged_in_nav.php";
+    } else {
+        include "nav.php"; 
+    }
+
+    global $result;
+    global $size;
+    
+    include "connect.php";
+
+    $sql = "SELECT jela.naziv, jela.cijena, restorani.ime FROM jela LEFT JOIN restorani ON jela.restoranID=restorani.id WHERE kategorija = 'Gotova Jela' ";
+    $result = $conn->query($sql) or die($conn->error);
+    $size = $result->num_rows;
+
+    if(isset($_POST['button'])){
+        $jelo = $_POST['button'];
+        $korisnik = $_SESSION['id'];
+        echo $jelo;
+        echo $korisnik;
+        $sql = "INSERT INTO favs VALUES ('1', '$korisnik')";
+        $conn->query($sql);
+    }
+
+    if(isset($_GET['filter'])){
+        echo '<script>
+                $(document).ready(function(){
+                    document.getElementById("tbody").innerHTML = " ";
+                });
+                </script>';
+        
+        $filter = $_GET['filter'];
+
+        if($filter == 1){
+            $sql = "SELECT jela.naziv, jela.cijena, restorani.ime FROM jela LEFT JOIN restorani ON jela.restoranID=restorani.id WHERE kategorija = 'Gotova Jela' ORDER BY cijena ASC";
+            $result = $conn->query($sql);
+            $size = $result->num_rows;
+            
+        } else if($filter == 2){
+            $sql = "SELECT jela.naziv, jela.cijena, restorani.ime FROM jela LEFT JOIN restorani ON jela.restoranID=restorani.id WHERE kategorija = 'Gotova Jela' ORDER BY cijena DESC ";
+            $result = $conn->query($sql);
+            $size = $result->num_rows;
+        }
+    }
+
+    $conn->close();
+?>
+
+<script>    
+    $(document).ready(function(){
+        document.getElementById("fav-1").style.color = "yellow";
+    });
+</script>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -21,117 +75,6 @@
     <link href="https://fonts.googleapis.com/css?family=Quicksand|Rubik&display=swap" rel="stylesheet">
 </head>
 <body>
-    <?php 
-        if(isset($_SESSION['id'])){
-            echo '<script>
-                    $(document).ready(function() {
-                        document.getElementById("reg-link").innerHTML = "ODJAVI SE";
-                        document.getElementById("reg-link").href = "odjava.php";
-
-                        var login_element = document.getElementById("login");
-                        login_element.remove();
-                    });
-                  </script>';
-        }
-
-        $servername = "localhost";
-        $username   = "root";
-        $password   = "";
-        $dbname     = "ktklopa";
-    
-        // Create connection
-        $conn = new mysqli($servername, $username, $password, $dbname);
-    
-        // Check connection
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
-        $sql = "SELECT jela.naziv, jela.cijena, restorani.ime FROM jela LEFT JOIN restorani ON jela.restoranID=restorani.id WHERE kategorija = 'Gotova Jela' ";
-        $result = $conn->query($sql) or die($conn->error);
-        generateTable($result);
-
-        if($_SERVER['REQUEST_METHOD'] == "POST"){
-            echo '<script>
-                    $(document).ready(function(){
-                        document.getElementById("tbody").innerHTML = " ";
-                    });
-                  </script>';
-            
-            $filter = $_POST['filter'];
-
-            if($filter == 1){
-                $sql = "SELECT jela.naziv, jela.cijena, restorani.ime FROM jela LEFT JOIN restorani ON jela.restoranID=restorani.id WHERE kategorija = 'Gotova Jela' ORDER BY cijena ASC";
-                $result = $conn->query($sql);
-                generateTable($result);
-                
-            } else if($filter == 2){
-                $sql = "SELECT jela.naziv, jela.cijena, restorani.ime FROM jela LEFT JOIN restorani ON jela.restoranID=restorani.id WHERE kategorija = 'Gotova Jela' ORDER BY cijena DESC ";
-                $result = $conn->query($sql);
-                generateTable($result);
-            }
-        }
-
-        function generateTable($result){
-            while($row = $result->fetch_assoc()){
-              //  echo '<script>
-               //         $(document).ready(function(){
-               //             var table_row = document.createElement("tr");
-              //              var table_data = document.createElement("td");
-              //              var table_data2 = document.createElement("td");
-               //             var table_data3 = document.createElement("td");
-                //            table_data.innerText = "'.$row['naziv'].'";
-                  //          table_data2.innnerText = "'.$row['cijena'].'";
-                  //          table_data3.innerText = "'.$row['ime'].'";
-
-                 //           table_row.appendChild(table_data);
-                 //           table_row.appendChild(table_data2);
-                 //           table_row.appendChild(table_data3);
-
-                 //           document.getElementById("tbody").appendChild(table_row);
-                 //       });
-                 //     </script>';
-                 
-                echo '<script>
-                        $(document).ready(function(){
-                            document.getElementById("tbody").innerHTML += "<tr><td>'.$row['naziv'].' </td><td>'.$row['cijena'].' kn</td></tr>";
-                        });
-                      </script>';
-            }
-
-        }
-
-        $conn->close();
-    ?>
-
-    <nav class="navbar sticky-top navbar-expand-md bg-light navbar-light">
-        <a href="" class="navbar-brand">
-            <img src="images/logo.png" alt="" >
-        </a>
-
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="collapsibleNavbar">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a href="KTK_restorani.php" class="nav-link">RESTORANI</a>
-                </li>
-                <li class ="nav-item">
-                    <a href="" class="nav-link">KLOPA</a>
-                </li>
-            </ul>
-
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item" id="login">
-                    <a href="KTK_login.php" class="nav-link">LOGIN</a>
-                </li>
-                <li class="nav-item" id="register">
-                    <a href="KTK_register.php" class="nav-link" id="reg-link">REGISTER</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
         <div class="container-fluid">
             <div class="row text-center">
                 <div class="col-xl-1"></div>
@@ -146,7 +89,7 @@
                             <p><a href="" class="card-link">Salate</a></p>
 
                             <h4>Filtriraj po:</h4>
-                            <form action="" method="post">
+                            <form action="" method="get">
                                 <div class="form-group">
                                     <select class="form-control" name="filter" id="filter">
                                         <option value="">...</option>
@@ -162,9 +105,8 @@
                     </div>
 
                 </div>
-
                 <div class="col-xl-8" style="margin-top: 60px;">
-                    <table class="table table-bordered" id="tableID">
+                    <table class="table table-bordered tb" id="tableID">
                         <thead class="thead-light">
                             <tr>
                                 <th>Naziv</th>
@@ -172,12 +114,31 @@
                                 <th>Restoran</th>
                             </tr>
                         </thead>
-                        <tbody id="tbody">
 
+                        <tbody id="tbody">
+                            <?php 
+                            $counter = 1;
+                            while($row = $result->fetch_assoc()){ ?>
+                                <tr>
+                                    <td><?php echo $row['naziv'];?></td>
+                                    <td><?php echo $row['cijena']." kn";?></td>
+                                    <td><?php echo $row['ime'];?></td>
+                                    <td>
+                                        <div style="text-align: center;" class="wrapper">
+                                            <form style="margin:0;" action="" method="post">
+                                                <?php echo '<button style="background:none; border:none;" name="button" id="favbutton" value="'.$row['naziv'].'" type="submit">'?>
+                                                    <?php echo '<i class="fas fa-star" id="fav-'.$counter.'" name="'.$row['naziv'].'"></i>';?>
+                                                <?php echo '</button>'?>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <?php }; ?>
                         </tbody>
                     </table>
                 </div>
-                <div class="col-xl-1"></div>
+                <div class="col-xl-1">
+                </div>
             </div>
         </div>
 </body>

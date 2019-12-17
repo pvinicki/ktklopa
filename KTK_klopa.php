@@ -22,56 +22,19 @@
     <link href="https://fonts.googleapis.com/css?family=Quicksand|Rubik&display=swap" rel="stylesheet">
 </head>
 <body>
-    <?php 
-        if(isset($_SESSION['id'])){
-            echo '<script>
-                    $(document).ready(function() {
-                        document.getElementById("reg-link").innerHTML = "ODJAVI SE";
-                        document.getElementById("reg-link").href = "odjava.php";
+        <?php
+            if(isset($_SESSION['id'])){
+                include "logged_in_nav.php";
+            } else {
+                include "nav.php"; 
+            }
 
-                        var login_element = document.getElementById("login");
-                        login_element.remove();
-                    });
-                  </script>';
-        }
-
-        
-    ?>
-
-    <nav class="navbar sticky-top navbar-expand-md bg-light navbar-light">
-        <a href="" class="navbar-brand">
-            <img src="images/logo.png" alt="" >
-        </a>
-
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="collapsibleNavbar">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a href="KTK_restorani.php" class="nav-link">RESTORANI</a>
-                </li>
-                <li class ="nav-item">
-                    <a href="" class="nav-link">KLOPA</a>
-                </li>
-            </ul>
-
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item" id="login">
-                    <a href="KTK_login.php" class="nav-link">LOGIN</a>
-                </li>
-                <li class="nav-item" id="register">
-                    <a href="KTK_register.php" class="nav-link" id="reg-link">REGISTER</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
+        ?>
         <div class="container-fluid">
             <div class="row text-center">
                 <div class="col-xl-1"></div>
-                <div class="col-xl-3">
-                    <div class="card" style="margin:60px;">
+                <div class="col-xl-2">
+                    <div class="card" style="margin-top:60px;">
                         <div class="card-body">
                             <h2 class="card-title">Kategorije</h2>
                             <p><a href="gotova_jela.php" class="card-link">Gotova Jela</a></p>
@@ -92,10 +55,24 @@
 
                 </div>
 
-                <div class="col-xl-7">
+                <div class="col-xl-8" style="margin-top: 60px;">
+                    <table class="table table-bordered" id="tableID">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>Naziv</th>
+                                <th>Cijena</th>
+                                <th>Restoran</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="tbody">
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-xl-1">
 
                 </div>
-                <div class="col-xl-1"></div>
             </div>
         </div>
 </body>

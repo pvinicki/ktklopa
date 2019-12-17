@@ -22,13 +22,7 @@
         $password   = "";
         $dbname     = "ktklopa";
     
-        // Create connection
-        $conn = new mysqli($servername, $username, $password, $dbname);
-    
-        // Check connection
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
+        include "connect.php";
 
         if($_SERVER['REQUEST_METHOD'] == "POST"){
             $user     = $_POST['username'];
@@ -44,7 +38,7 @@
                 $sql = "INSERT INTO korisnici (username, lozinka, email, uloga) VALUES ('$user', '$hash', '$email', 'korisnik')";
                 $conn->query($sql);
                 $conn->close();
-                header('Location: index.php');
+                header('Location: KTK_login.php');
             } else {
                 echo '<script> alert("korisničko ime je zauzeto!") </script>';
             }

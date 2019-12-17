@@ -1,5 +1,40 @@
+
 <?php
     session_start();
+
+    include "connect.php";
+
+    if($_SERVER['REQUEST_METHOD'] == 'POST'){
+        $user     = $_POST['username'];
+        $password = $_POST['password'];
+
+        $sql    = "SELECT * FROM korisnici WHERE username = '$user'";
+        $result = $conn->query($sql);
+
+        //check if user exists
+        if($result->num_rows > 0){
+            while($row = $result->fetch_assoc()){
+                //check if admin
+                if(($row['uloga'] == 'admin') and (password_verify($password == $row['lozinka']))){
+                    $_SESSION['id'] = $row['id'];
+                    $_SESSION['uloga'] = 'admin';
+                    header('Location: adminpage.php');
+                }else if(password_verify($password, $row['lozinka'])){
+                    $_SESSION['id'] = $row['id'];
+                    $_SESSION['uloga'] = 'korisnik';
+                    header('Location: index.php');
+                } else if($password == $row['lozinka']){
+                    $_SESSION['id'] = $row['id'];
+                    $_SESSION['uloga'] = 'korisnik';
+                    header('Location: index.php');
+                } else {
+                    echo '<script>alert("Invalid username or password!")</script>';
+                }
+            }
+        } else {
+            echo '<script>alert("Invalid username or password!")</script>';
+        }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -20,56 +55,6 @@
 </head>
 
 <body class="body">
-    <?php
-        $servername = "localhost";
-        $username   = "root";
-        $password   = "";
-        $dbname     = "ktklopa";
-    
-        // Create connection
-        $conn = new mysqli($servername, $username, $password, $dbname);
-    
-        // Check connection
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
-
-        if($_SERVER['REQUEST_METHOD'] == 'POST'){
-            $user     = $_POST['username'];
-            $password = $_POST['password'];
-
-            $sql    = "SELECT * FROM korisnici WHERE username = '$user'";
-            $result = $conn->query($sql);
-
-            //check if user exists
-            if($result->num_rows > 0){
-                while($row = $result->fetch_assoc()){
-
-                    //check if admin
-                    if(($row['uloga'] == 'admin') and ($password == $row['lozinka'])){
-                        $_SESSION['id'] = $row['id'];
-                        $_SESSION['uloga'] = 'admin';
-                        header('Location: adminpage.php');
-                    }
-                    
-                    //check password
-                    if(password_verify($password, $row['lozinka'])){
-                        $_SESSION['id'] = $row['id'];
-                        $_SESSION['uloga'] = 'korisnik';
-                        header('Location: index.php');
-                    } else if($password == $row['lozinka']){
-                        $_SESSION['id'] = $row['id'];
-                        $_SESSION['uloga'] = 'korisnik';
-                        header('Location: index.php');
-                    } else {
-                        echo '<script>alert("Invalid username or password!")</script>';
-                    }
-                }
-            } else {
-                echo '<script>alert("Invalid username or password!")</script>';
-            }
-        }
-    ?>
 
     <nav class="navbar sticky-top navbar-expand-md bg-light navbar-light">
         <a href="index.php" class="navbar-brand">
